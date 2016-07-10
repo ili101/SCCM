@@ -143,7 +143,7 @@ function Wait-StringInFile
     )
     $StartTime = Get-Date
     $RotateTime = $StartTime
-    $Reader = New-Object -TypeName System.IO.StreamReader -ArgumentList (New-Object -TypeName IO.FileStream -ArgumentList ($Path, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, [IO.FileShare]::ReadWrite))
+    $Reader = New-Object -TypeName System.IO.StreamReader -ArgumentList (New-Object -TypeName IO.FileStream -ArgumentList ($Path, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, ([IO.FileShare]::Delete,([IO.FileShare]::ReadWrite)) ))
     #get end the file
     $LastMaxOffset = $Reader.BaseStream.Length
     #get encoding
@@ -172,9 +172,10 @@ function Wait-StringInFile
                 $_.CreationTime -gt $RotateTime
         })
         {
+            Write-Verbose -Message "file $PathR rotated in $($PathR.CreationTime) at $LastMaxOffset"
 
             #read the rotated file from LastMaxOffset
-            $ReaderR = New-Object -TypeName System.IO.StreamReader -ArgumentList (New-Object -TypeName IO.FileStream -ArgumentList ($PathR.FullName, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, [IO.FileShare]::ReadWrite)), $Reader.CurrentEncoding
+            $ReaderR = New-Object -TypeName System.IO.StreamReader -ArgumentList (New-Object -TypeName IO.FileStream -ArgumentList ($PathR.FullName, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, ([IO.FileShare]::Delete,([IO.FileShare]::ReadWrite)) )), $Reader.CurrentEncoding
             $null = $ReaderR.BaseStream.Seek($LastMaxOffset, [System.IO.SeekOrigin]::Begin)
             #read out of the file until the EOF
             while (($Line = $ReaderR.ReadLine()) -ne $null)
