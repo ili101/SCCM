@@ -24,61 +24,85 @@ function Invoke-ConfigurationManagerCycle
     #Cycles database
     $Commands = @{}
     $Commands.Add('Application Deployment Evaluation Cycle', (New-Object -TypeName PSObject -Property (@{
-                    'Code'  = '00000000-0000-0000-0000-000000000121'
-                    'Log'   = "$env:windir\ccm\logs\DCMReporting.log"
-                    'Patterns' = @{'*FinalRelease*' = 'Completed'}
+                    'Code'   = '00000000-0000-0000-0000-000000000121'
+                    'Log'    = "$env:windir\ccm\logs\DCMReporting.log"
+                    'Patterns' = @{
+                        '*FinalRelease*' = 'Completed'
+                    }
     })))
     $Commands.Add('Discovery Data Collection Cycle', (New-Object -TypeName PSObject -Property (@{
-                    'Code'  = '00000000-0000-0000-0000-000000000003'
-                    'Log'   = "$env:windir\ccm\logs\InventoryAgent.log"
-                    'Patterns' = @{'*End of message processing*' = 'Completed'}
+                    'Code'   = '00000000-0000-0000-0000-000000000003'
+                    'Log'    = "$env:windir\ccm\logs\InventoryAgent.log"
+                    'Patterns' = @{
+                        '*End of message processing*' = 'Completed'
+                    }
     })))
     $Commands.Add('File Collection Cycle', (New-Object -TypeName PSObject -Property (@{
-                    'Code'  = '00000000-0000-0000-0000-000000000010'
-                    'Log'   = "$env:windir\ccm\logs\InventoryAgent.log"
-                    'Patterns' = @{'*Action completed*' = 'Completed' ; '*Exiting as no items to collect*' = 'Completed'}
+                    'Code'   = '00000000-0000-0000-0000-000000000010'
+                    'Log'    = "$env:windir\ccm\logs\InventoryAgent.log"
+                    'Patterns' = @{
+                        '*Action completed*'             = 'Completed'
+                        '*Exiting as no items to collect*' = 'Completed'
+                    }
     })))
     $Commands.Add('Hardware Inventory Cycle', (New-Object -TypeName PSObject -Property (@{
-                    'Code'  = '00000000-0000-0000-0000-000000000001'
-                    'Log'   = "$env:windir\ccm\logs\InventoryAgent.log"
-                    'Patterns' = @{'*End of message processing*' = 'Completed' ; '*already in queue. Message ignored.*' = 'Ignored'}
+                    'Code'   = '00000000-0000-0000-0000-000000000001'
+                    'Log'    = "$env:windir\ccm\logs\InventoryAgent.log"
+                    'Patterns' = @{
+                        '*End of message processing*'        = 'Completed'
+                        '*already in queue. Message ignored.*' = 'Ignored'
+                    }
     })))
     $Commands.Add('Machine Policy Evaluation Cycle', (New-Object -TypeName PSObject -Property (@{
-                    'Code'  = '00000000-0000-0000-0000-000000000022'
-                    'Log'   = "$env:windir\ccm\logs\PolicyEvaluator.log"
-                    'Patterns' = @{'*instance of CCM_PolicyAgent_PolicyEvaluationComplete*' = 'Completed'}
+                    'Code'   = '00000000-0000-0000-0000-000000000022'
+                    'Log'    = "$env:windir\ccm\logs\PolicyEvaluator.log"
+                    'Patterns' = @{
+                        '*instance of CCM_PolicyAgent_PolicyEvaluationComplete*' = 'Completed'
+                    }
     })))
     $Commands.Add('Machine Policy Retrieval Cycle', (New-Object -TypeName PSObject -Property (@{
-                    'Code'  = '00000000-0000-0000-0000-000000000021'
-                    'Log'   = "$env:windir\ccm\logs\PolicyAgent.log"
-                    'Patterns' = @{'*instance of CCM_PolicyAgent_AssignmentsRequested*' = 'Completed'}
+                    'Code'   = '00000000-0000-0000-0000-000000000021'
+                    'Log'    = "$env:windir\ccm\logs\PolicyAgent.log"
+                    'Patterns' = @{
+                        '*instance of CCM_PolicyAgent_AssignmentsRequested*' = 'Completed'
+                    }
     })))
     $Commands.Add('Software Inventory Cycle', (New-Object -TypeName PSObject -Property (@{
-                    'Code'  = '00000000-0000-0000-0000-000000000002'
-                    'Log'   = "$env:windir\ccm\logs\InventoryAgent.log"
-                    'Patterns' = @{'*Initialization completed in*' = 'Completed'}
+                    'Code'   = '00000000-0000-0000-0000-000000000002'
+                    'Log'    = "$env:windir\ccm\logs\InventoryAgent.log"
+                    'Patterns' = @{
+                        '*Initialization completed in*' = 'Completed'
+                    }
     })))
     $Commands.Add('Software Metering Usage Report Cycle', (New-Object -TypeName PSObject -Property (@{
-                    'Code'  = '00000000-0000-0000-0000-000000000031'
-                    'Log'   = "$env:windir\ccm\logs\SWMTRReportGen.log"
-                    'Patterns' = @{'*No usage data found to generate software metering report*' = 'Completed'
-                                   '*Successfully generated report header*' = 'Completed'
-                                   '*Message ID of sent message*' = 'Completed'}
+                    'Code'   = '00000000-0000-0000-0000-000000000031'
+                    'Log'    = "$env:windir\ccm\logs\SWMTRReportGen.log"
+                    'Patterns' = @{
+                        '*No usage data found to generate software metering report*' = 'Completed'
+                        '*Successfully generated report header*'                   = 'Completed'
+                        '*Message ID of sent message*'                             = 'Completed'
+                    }
     })))
     $Commands.Add('Software Updates Assignments Evaluation Cycle', (New-Object -TypeName PSObject -Property (@{
-                    'Code'  = '00000000-0000-0000-0000-000000000108'
-                    'Log'   = "$env:windir\ccm\logs\ScanAgent.log"
-                    'Patterns' = @{'*Calling back to client on Scan request complete*' = 'Completed'}
+                    'Code'   = '00000000-0000-0000-0000-000000000108'
+                    'Log'    = "$env:windir\ccm\logs\ScanAgent.log"
+                    'Patterns' = @{
+                        '*Calling back to client on Scan request complete*' = 'Completed'
+                    }
     })))
     $Commands.Add('Software Update Scan Cycle', (New-Object -TypeName PSObject -Property (@{
-                    'Code'  = '00000000-0000-0000-0000-000000000113'
-                    'Log'   = "$env:windir\ccm\logs\ScanAgent.log"
-                    'Patterns' = @{'*scan completion received*' = 'Completed'}
+                    'Code'   = '00000000-0000-0000-0000-000000000113'
+                    'Log'    = "$env:windir\ccm\logs\ScanAgent.log"
+                    'Patterns' = @{
+                        '*scan completion received*' = 'Completed'
+                    }
     })))
     $Commands.Add('Windows Installers Source List Update Cycle', (New-Object -TypeName PSObject -Property (@{
-                    'Code'  = '00000000-0000-0000-0000-000000000032'
-                    'Log'   = "$env:windir\ccm\logs\SrcUpdateMgr.log"
-                    'Patterns' = @{'*MSI update source list task finished successfully*' = 'Completed'}
+                    'Code'   = '00000000-0000-0000-0000-000000000032'
+                    'Log'    = "$env:windir\ccm\logs\SrcUpdateMgr.log"
+                    'Patterns' = @{
+                        '*MSI update source list task finished successfully*' = 'Completed'
+                    }
     })))
 
     "Running $CycleName"
@@ -144,12 +168,13 @@ function Wait-StringInFile
         }
 
         #detect file rotate
-        if ($PathR = Get-ChildItem -Path ($Path -replace '\.','-*.') -ErrorAction SilentlyContinue | Where-Object -GT -Property CreationTime -Value $RotateTime)
+        if ($PathR = Get-ChildItem -Path ($Path -replace '\.', '-*.') -ErrorAction SilentlyContinue | Where-Object -FilterScript {
+                $_.CreationTime -gt $RotateTime
+        })
         {
-            Write-Verbose "file rotated at $LastMaxOffset"
 
             #read the rotated file from LastMaxOffset
-            $ReaderR = New-Object -TypeName System.IO.StreamReader -ArgumentList (New-Object -TypeName IO.FileStream -ArgumentList ($PathR.FullName, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, [IO.FileShare]::ReadWrite)),$Reader.CurrentEncoding
+            $ReaderR = New-Object -TypeName System.IO.StreamReader -ArgumentList (New-Object -TypeName IO.FileStream -ArgumentList ($PathR.FullName, [System.IO.FileMode]::Open, [System.IO.FileAccess]::Read, [IO.FileShare]::ReadWrite)), $Reader.CurrentEncoding
             $null = $ReaderR.BaseStream.Seek($LastMaxOffset, [System.IO.SeekOrigin]::Begin)
             #read out of the file until the EOF
             while (($Line = $ReaderR.ReadLine()) -ne $null)
@@ -166,7 +191,7 @@ function Wait-StringInFile
             }
 
             $RotateTime = $PathR.CreationTime
-            Write-Verbose 'file rotated end'
+            Write-Verbose -Message 'file rotated end'
             #go back to the start of the file
             $LastMaxOffset = 0
             #seek to the Beginning
@@ -198,15 +223,15 @@ function Wait-StringInFile
 }
 
 <#
-Invoke-ConfigurationManagerCycle -CycleName 'Machine Policy Retrieval Cycle'
-Invoke-ConfigurationManagerCycle -CycleName 'Machine Policy Evaluation Cycle'
-Invoke-ConfigurationManagerCycle -CycleName 'Software Update Scan Cycle'
-Invoke-ConfigurationManagerCycle -CycleName 'Software Updates Assignments Evaluation Cycle'
-Invoke-ConfigurationManagerCycle -CycleName 'Application Deployment Evaluation Cycle'
-Invoke-ConfigurationManagerCycle -CycleName 'Discovery Data Collection Cycle'
-Invoke-ConfigurationManagerCycle -CycleName 'File Collection Cycle'
-Invoke-ConfigurationManagerCycle -CycleName 'Hardware Inventory Cycle'
-Invoke-ConfigurationManagerCycle -CycleName 'Software Inventory Cycle'
-Invoke-ConfigurationManagerCycle -CycleName 'Software Metering Usage Report Cycle'
-Invoke-ConfigurationManagerCycle -CycleName 'Windows Installers Source List Update Cycle'
+        Invoke-ConfigurationManagerCycle -CycleName 'Machine Policy Retrieval Cycle'
+        Invoke-ConfigurationManagerCycle -CycleName 'Machine Policy Evaluation Cycle'
+        Invoke-ConfigurationManagerCycle -CycleName 'Software Update Scan Cycle'
+        Invoke-ConfigurationManagerCycle -CycleName 'Software Updates Assignments Evaluation Cycle'
+        Invoke-ConfigurationManagerCycle -CycleName 'Application Deployment Evaluation Cycle'
+        Invoke-ConfigurationManagerCycle -CycleName 'Discovery Data Collection Cycle'
+        Invoke-ConfigurationManagerCycle -CycleName 'File Collection Cycle'
+        Invoke-ConfigurationManagerCycle -CycleName 'Hardware Inventory Cycle'
+        Invoke-ConfigurationManagerCycle -CycleName 'Software Inventory Cycle'
+        Invoke-ConfigurationManagerCycle -CycleName 'Software Metering Usage Report Cycle'
+        Invoke-ConfigurationManagerCycle -CycleName 'Windows Installers Source List Update Cycle'
 #>
